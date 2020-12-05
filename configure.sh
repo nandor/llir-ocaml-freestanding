@@ -38,7 +38,7 @@ case "${BUILD_ARCH}" in
         ;;
     llir_amd64)
 	BUILD_ARCH="x86_64"
-	OCAML_BUILD_ARCH="llir_x86_64"
+	OCAML_BUILD_ARCH="llir_amd64"
 	OCAML_CONFIG_FLAGS="--enable-llir"
 	;;
     aarch64)
