@@ -46,8 +46,11 @@ ocaml/Makefile.config: ocaml/Makefile
 	    CPPFLAGS="$(OCAML_CFLAGS)" \
 	    ./configure --host=$(BUILD_ARCH)-unknown-none $(OCAML_CONFIG_FLAGS)
 	echo "ARCH=$(OCAML_BUILD_ARCH)" >> ocaml/Makefile.config
+	echo '#undef HAS_GETTIMEOFDAY' >> ocaml/runtime/caml/s.h
 	echo '#define HAS_GETTIMEOFDAY' >> ocaml/runtime/caml/s.h
+	echo '#undef HAS_SECURE_GETENV' >> ocaml/runtime/caml/s.h
 	echo '#define HAS_SECURE_GETENV' >> ocaml/runtime/caml/s.h
+	echo '#undef HAS_TIMES' >> ocaml/runtime/caml/s.h
 	echo '#define HAS_TIMES' >> ocaml/runtime/caml/s.h
 	echo '#undef OCAML_OS_TYPE' >> ocaml/runtime/caml/s.h
 	echo '#define OCAML_OS_TYPE "None"' >> ocaml/runtime/caml/s.h
