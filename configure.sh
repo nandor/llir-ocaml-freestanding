@@ -24,7 +24,7 @@ fi
 ocamlfind query ocaml-src >/dev/null || exit 1
 
 FREESTANDING_CFLAGS="$(pkg-config --cflags ${PKG_CONFIG_DEPS})"
-BUILD_ARCH="$(uname -m)"
+BUILD_ARCH="$(cat $(opam config var prefix)/lib/ocaml/Makefile.config | grep '^ARCH' | head -n 1 | sed -e s/ARCH=//g)"
 BUILD_OS="$(uname -s)"
 OCAML_BUILD_ARCH=
 
@@ -34,9 +34,16 @@ case "${BUILD_ARCH}" in
     amd64|x86_64)
         BUILD_ARCH="x86_64"
         OCAML_BUILD_ARCH="amd64"
+	OCAML_CONFIG_FLAGS=""
         ;;
+    llir_amd64)
+	BUILD_ARCH="x86_64"
+	OCAML_BUILD_ARCH="llir_x86_64"
+	OCAML_CONFIG_FLAGS="--enable-llir"
+	;;
     aarch64)
         OCAML_BUILD_ARCH="arm64"
+	OCAML_CONFIG_FLAGS=""
         ;;
     *)
         echo "ERROR: Unsupported architecture: ${BUILD_ARCH}" 1>&2
@@ -54,6 +61,7 @@ FREESTANDING_CFLAGS=${FREESTANDING_CFLAGS}
 BUILD_ARCH=${BUILD_ARCH}
 BUILD_OS=${BUILD_OS}
 OCAML_BUILD_ARCH=${OCAML_BUILD_ARCH}
+OCAML_CONFIG_FLAGS=${OCAML_CONFIG_FLAGS}
 NOLIBC_SYSDEP_OBJS=sysdeps_solo5.o
 PKG_CONFIG_DEPS=${PKG_CONFIG_DEPS}
 PKG_CONFIG_EXTRA_LIBS=${PKG_CONFIG_EXTRA_LIBS}

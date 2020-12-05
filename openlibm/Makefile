@@ -56,7 +56,7 @@ check test: test/test-double test/test-float
 	test/test-float
 
 libopenlibm.a: $(OBJS)
-	$(AR) -rcs libopenlibm.a $(OBJS)
+	$(AR) rcs libopenlibm.a $(OBJS)
 
 libopenlibm.$(OLM_MAJOR_MINOR_SHLIB_EXT): $(OBJS)
 	$(CC) -shared $(OBJS) $(LDFLAGS) $(LDFLAGS_add) -Wl,$(SONAME_FLAG),libopenlibm.$(OLM_MAJOR_SHLIB_EXT) -o $@

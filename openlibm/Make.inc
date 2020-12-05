@@ -21,26 +21,7 @@ else
 pkgconfigdir = $(libdir)/pkgconfig
 endif
 
-USEGCC = 1
-USECLANG = 0
-
-ifneq (,$(findstring $(OS),Darwin FreeBSD OpenBSD))
-USEGCC = 0
-USECLANG = 1
-endif
-
-AR = ar
-
-ifeq ($(USECLANG),1)
-USEGCC = 0
-CC = clang
 CFLAGS_add += -fno-builtin -fno-strict-aliasing
-endif
-
-ifeq ($(USEGCC),1)
-CC = gcc
-CFLAGS_add += -fno-gnu89-inline -fno-builtin
-endif
 
 ARCH ?= $(shell $(CC) -dumpmachine | sed "s/\([^-]*\).*$$/\1/")
 
@@ -66,6 +47,9 @@ MARCH ?= i686
 endif
 ifeq ($(ARCH),x86_64)
 override ARCH := amd64
+endif
+ifeq ($(ARCH),llir_x86_64)
+override ARCH := llir_amd64
 endif
 
 # If CFLAGS does not contain a -O optimization flag, default to -O3

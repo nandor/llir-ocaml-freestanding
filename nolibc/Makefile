@@ -12,7 +12,6 @@ all: libnolibc.a
 clean:
 	$(RM) libnolibc.a *.o test-include/*.[co] test-include/sys/*.[co]
 
-CC=cc
 CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror
 CFLAGS+=$(FREESTANDING_CFLAGS)
 

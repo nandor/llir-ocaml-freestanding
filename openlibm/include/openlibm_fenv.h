@@ -5,7 +5,11 @@
 #if defined(__aarch64__) || defined(__arm__)
 #include <openlibm_fenv_arm.h>
 #elif defined(__x86_64__)
+#ifdef __llir__
+#include <openlibm_fenv_llir_amd64.h>
+#else
 #include <openlibm_fenv_amd64.h>
+#endif
 #elif defined(__i386__)
 #include <openlibm_fenv_i387.h>
 #elif defined(__powerpc__)

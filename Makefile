@@ -39,12 +39,12 @@ OCAML_CFLAGS=$(FREESTANDING_CFLAGS) -I$(TOP)/openlibm/include -I$(TOP)/openlibm/
 
 ocaml/Makefile.config: ocaml/Makefile
 	cd ocaml && \
-	    CC="cc $(OCAML_CFLAGS) -nostdlib" \
-	    AS="as" \
-	    ASPP="cc $(OCAML_CFLAGS) -c" \
-	    LD="ld" \
+	    CC="$(CC) $(OCAML_CFLAGS) -nostdlib" \
+	    AS="$(AS)" \
+	    ASPP="$(CC) $(OCAML_CFLAGS) -c" \
+	    LD="$(CC)" \
 	    CPPFLAGS="$(OCAML_CFLAGS)" \
-	    ./configure --host=$(BUILD_ARCH)-unknown-none
+	    ./configure --host=$(BUILD_ARCH)-unknown-none $(OCAML_CONFIG_FLAGS)
 	echo "ARCH=$(OCAML_BUILD_ARCH)" >> ocaml/Makefile.config
 	echo '#define HAS_GETTIMEOFDAY' >> ocaml/runtime/caml/s.h
 	echo '#define HAS_SECURE_GETENV' >> ocaml/runtime/caml/s.h
