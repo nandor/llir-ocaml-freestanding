@@ -3,7 +3,7 @@ include ./Make.inc
 
 SUBDIRS = src $(ARCH) bsdsrc
 # Add ld80 directory on x86 and x64
-ifneq ($(filter $(ARCH),i387 amd64),)
+ifneq ($(filter $(ARCH),i387 amd64 llir_amd64),)
 SUBDIRS += ld80
 else
 ifneq ($(filter $(ARCH),aarch64),)
