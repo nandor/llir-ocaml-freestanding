@@ -4541,7 +4541,9 @@ static void* tmalloc_small(mstate m, size_t nb) {
 
 #if !ONLY_MSPACES
 
-void* dlmalloc(size_t bytes) {
+void*
+__attribute__((noinline))
+dlmalloc(size_t bytes) {
   /*
      Basic algorithm:
      If a small request (< 256 bytes minus per-chunk overhead):
@@ -4680,7 +4682,9 @@ void* dlmalloc(size_t bytes) {
 
 /* ---------------------------- free --------------------------- */
 
-void dlfree(void* mem) {
+void
+__attribute__((noinline))
+dlfree(void* mem) {
   /*
      Consolidate freed chunks with preceeding or succeeding bordering
      free chunks, if they exist, and then place in a bin.  Intermixed
@@ -5183,7 +5187,9 @@ static void internal_inspect_all(mstate m,
 
 #if !ONLY_MSPACES
 
-void* dlrealloc(void* oldmem, size_t bytes) {
+void*
+__attribute__((noinline))
+dlrealloc(void* oldmem, size_t bytes) {
   void* mem = 0;
   if (oldmem == 0) {
     mem = dlmalloc(bytes);
